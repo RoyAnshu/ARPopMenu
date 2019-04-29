@@ -27,7 +27,7 @@ s.source = { :git => "https://github.com/RoyAnshu/ARPopMenu.git",
 s.framework = "UIKit"
 
 # 8
-s.source_files = '*.{h,m}'
+s.source_files = 'ARPopMenu/*.{h,m}'
 
 
 

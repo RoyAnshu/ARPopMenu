@@ -7,13 +7,11 @@
 
 #import "ARPopUpMenu.h"
 
-#define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-#define appDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
-
 ARPopMenuReturnBlock ARPopMenuBlock;
 static ARPopUpMenu *shared = nil;
+int SCREEN_WIDTH, SCREEN_HEIGHT;
 
+UIWindow *window;
 @implementation ARPopUpMenu
 
 - (id)initWithFrame:(CGRect)frame {
@@ -25,6 +23,9 @@ static ARPopUpMenu *shared = nil;
         tapRecognizer.cancelsTouchesInView = NO;
         tapRecognizer.delegate = self;
         [self addGestureRecognizer:tapRecognizer];
+        SCREEN_WIDTH = [[UIScreen mainScreen] bounds].size.width;
+        SCREEN_HEIGHT = [[UIScreen mainScreen] bounds].size.height;
+        window = (UIWindow *)[[[UIApplication sharedApplication] delegate] window];
     }
     return self;
 }
@@ -70,7 +71,6 @@ static ARPopUpMenu *shared = nil;
     }else {
         tableView_menu.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-    
     tableView_menu.tableFooterView = [UIView new];
     shared.isMultiLineTitle = isMultiLineTitle;
     if (isMultiLineTitle) {
@@ -94,7 +94,7 @@ static ARPopUpMenu *shared = nil;
     [shared addSubview:bgView];
     [tableView_menu reloadData];
     [bgView bringSubviewToFront:shared];    
-    [appDelegate.window addSubview:shared];
+    [window addSubview:shared];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource Methods
